@@ -7,15 +7,17 @@ import SignUp from './pages/SignUp';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import { useAuthStore } from './store/useAuthStore';
+import { useThemeStore } from './store/useThemeStore';
 import { Loader } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
 
 
 const App = () => {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
+  const { theme } = useThemeStore();
   useEffect(() => { checkAuth() }, [checkAuth]);
 
-  console.log({ authUser });
+  console.log({ onlineUsers });
 
   if (isCheckingAuth && !authUser) return (
     <div className='flex items-center justify-center h-screen'>
@@ -24,7 +26,7 @@ const App = () => {
   )
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
 
       <Routes>
